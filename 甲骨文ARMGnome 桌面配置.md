@@ -31,8 +31,21 @@ sudo apt -get install gnome
 ```
 sudo apt -get install lightdm
 ```
-
+//其他涉及桌面管理环境代码
+```
+sudo apt-get remove lightdm  
+```
+// 删除指定桌面管理环境
+```
+sudo dpkg-reconfigure gdm3
+```
+// 重置默认桌面管理环境，重启生效
+```
+cat /etc/X11/default-display-manager
+```
+// 查看当前桌面管理环境
 完毕后进行 Xrdp 的安装，提供远程桌面访问的能力，执行以下命令
+
 ```
 apt install xrdp -y
 ```
@@ -49,16 +62,13 @@ adduser xrdp ssl-cert
 systemctl restart xrdp  
 systemctl status xrdp
 ```
-
 ![](https://www.you2php.com/zb_users/upload/2021/10/202110041633324828767818.jpg)
-
-
-**这样桌面环境和远程服务安装好后，就可以连接到远程桌面。经过反复的测试和实验，使用 Windows 10 默认的远程桌面工具 mstsc，体验非常卡顿, 具体原因具体可以总结一下，就是微软的 rdp 与 Linux 的 Xrdp 进行连接时存在兼容性问题，不要以为纯粹是网络问题，其实甲骨文 ARM 的性能非常夸张，可以很负责任的告诉大家，甲骨文的这个 ARM 芯片，相比于 X86 架构，你很难在消费市场上找到能比他强的，总之性能就是给的实在，具体大家深入体会后就明白了。**
+这样桌面环境和远程服务安装好后，就可以连接到远程桌面。经过反复的测试和实验，使用 Windows 10 默认的远程桌面工具 mstsc，体验非常卡顿, 具体原因具体可以总结一下，就是微软的 rdp 与 Linux 的 Xrdp 进行连接时存在兼容性问题，不要以为纯粹是网络问题，其实甲骨文 ARM 的性能非常夸张，可以很负责任的告诉大家，甲骨文的这个 ARM 芯片，相比于 X86 架构，你很难在消费市场上找到能比他强的，总之性能就是给的实在，具体大家深入体会后就明白了。
 
 安装 Linux FRP 服务  
 接下来 FRP 将会彻底解决远程桌面卡顿的问题，在这里给大家普及一下 FRP 的运作机制，首先 FRP 分为客户端 frpc 和服务端 frps，大家只要记住，哪个要做中转机哪个就放服务端，客户端放在 ARM 上，如果像我这种用甲骨文春川的本来国内直连速度就比较好，那就可以服务端和客户端都放在 ARM 机器上，这样就相当于 ARM 本地做了一次端口转发，理解这个逻辑，那么就开始干！
 
-实测 甲骨文首尔 ARM FRP 本地中转 油管 4K 丝滑**
+实测 甲骨文首尔 ARM FRP 本地中转 油管 4K 丝滑
 
 ![](https://www.you2php.com/zb_users/upload/2021/12/202112081638969066715418.gif)
 
