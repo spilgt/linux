@@ -1,10 +1,13 @@
 安装 Ubuntu 官方 Gnome 桌面：接下来做一次更新和升级，执行命令：
-
+```
 apt update -y ; apt upgrade -y
+```
 
 升级后设置一下语言：(为了让大家进入图形系统后能够设置中文界面！）
 
+```
 dpkg-reconfigure locales
+```
 
 在出现的第一画面里做如下选择，空格键是选择，Tab 键可以跳到 “OK” 上，Enter 键确认：
 
@@ -16,8 +19,9 @@ dpkg-reconfigure locales
 
 设置完毕后，重新连接一次服务器，会发现系统支持中文展示了  
 下面开始桌面环境的安装，这里安装 ubuntu desktop 而不是 xfce，执行命令
-
+```
 sudo apt -get install gnome
+```
 
 ![](https://www.you2php.com/zb_users/upload/2021/10/202110041633324801675168.jpg)
 
@@ -25,20 +29,23 @@ sudo apt -get install gnome
 
 
 完毕后进行 Xrdp 的安装，提供远程桌面访问的能力，执行以下命令
-
+```
 apt install xrdp -y
+```
 
 Xrdp 会安装成服务，可以验证一下
-
+```
 systemctl status xrdp
+```
 
 ![](https://www.you2php.com/zb_users/upload/2021/10/202110041633324816813414.jpg)
 
 可以看到红色 ERROR 这一行信息，如何解决呢？执行以下命令，可以看到红色的信息不见了
-
+```
 adduser xrdp ssl-cert  
 systemctl restart xrdp  
 systemctl status xrdp
+```
 
 ![](https://www.you2php.com/zb_users/upload/2021/10/202110041633324828767818.jpg)
 
@@ -61,7 +68,7 @@ systemctl status xrdp
 ![](https://www.you2php.com/zb_users/upload/2021/10/202110041633324844671801.jpg)
 
 2. 修改 frpc.ini 文件
-
+```
 [common]  
 server_addr = 127.0.0.1（机器内部做转发，就用 127.0.0.1，如果用腾讯云香港做服转发，就填腾讯云的 IP）  
 server_port = 7000  
@@ -72,23 +79,27 @@ type = tcp
 remote_port = 13389  
 local_ip = 127.0.0.1  
 local_port = 3389
+```
 
 3. 把 systemd 文件夹下的 frpc.service，放到 / etc/systemd/system 下。
 
 设置权限
-
+```
 chmod 754 frpc.service
+```
 
 设置开机启动即可
-
+```
 systemctl enable frpc.service
+```
 
 4. 在 / etc/frp 目录下
-
+```
 cp frpc /usr/bin  
 chmod +x /usr/bin/frpc  
 systemctl start frpc  
 ps -ef|grep frpc
+```
 
 客户端结束
 
@@ -99,28 +110,30 @@ ps -ef|grep frpc
 ![](https://www.you2php.com/zb_users/upload/2021/10/202110041633324869479706.jpg)
 
 2. 修改 frps.ini 文件（这里为了方便大家不掉坑，我这里直接给出自己已经搭建成功的配置文件给大家，完整覆盖过去）
-
+```
 [common]  
 bind_port = 7000  
 token = 12345678
+```
 
 3. 把 systemd 文件夹下的 frps.service，放到 / etc/systemd/system 下
 
 设置权限
-
+```
 chmod 754 frps.service
+```
 
 设置开机启动即可
-
+```
 systemctl enable frps.service
-
+```
 4. 在 / etc/frp 目录下
-
+```
 cp frps /usr/bin  
 chmod +x /usr/bin/frps  
 systemctl start frps  
 ps -ef|grep frps
-
+```
 完成，结束
 
 
