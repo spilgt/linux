@@ -1,5 +1,5 @@
 ```
-docker run -d --name bt \
+docker run -d --name bt
 -e SIGNUPS_ALLOWED=true \
 -e WEBSOCKET_ENABLED=true \
 -e ROCKET_WORKERS=40 \
